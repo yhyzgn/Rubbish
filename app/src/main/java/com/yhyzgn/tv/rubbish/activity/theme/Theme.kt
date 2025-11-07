@@ -2,7 +2,6 @@ package com.yhyzgn.tv.rubbish.activity.theme
 
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 
 @Composable
 fun TvAppTheme(content: @Composable () -> Unit) {
@@ -11,7 +10,9 @@ fun TvAppTheme(content: @Composable () -> Unit) {
             primary = AppColors.accent,
             background = AppColors.background,
             surface = AppColors.cardNormal,
-            onBackground = Color.White
+            onBackground = AppColors.textPrimary,
+            onSurface = AppColors.textPrimary,
+            onPrimary = AppColors.textPrimary
         ),
         typography = Typography(),
         content = content
