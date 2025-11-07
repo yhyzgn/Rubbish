@@ -148,8 +148,6 @@ fun HomeScreen(
     }
 }
 
-
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun SourceRow(
     current: String,
