@@ -1,5 +1,0 @@
-<resources>
-    <style name="ClockTimerTheme">
-        <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
-</resources>

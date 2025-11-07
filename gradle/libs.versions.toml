@@ -1,0 +1,29 @@
+[versions]
+agp = "8.13.0"
+coreKtxVersion = "1.17.0"
+jsoup = "1.21.2"
+kotlin = "2.0.21"
+junit = "4.13.2"
+junitVersion = "1.3.0"
+espressoCore = "3.7.0"
+appcompat = "1.7.1"
+material = "1.13.0"
+tvFoundation = "1.0.0-alpha10"
+tvMaterial = "1.0.0-alpha10"
+
+[libraries]
+androidx-core-ktx-v1170 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
+androidx-tv-foundation = { module = "androidx.tv:tv-foundation", version.ref = "tvFoundation" }
+androidx-tv-material = { module = "androidx.tv:tv-material", version.ref = "tvMaterial" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
