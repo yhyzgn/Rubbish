@@ -4,7 +4,7 @@ import androidx.compose.ui.unit.dp
 
 object FocusDefaults {
     // Focus scaling used across the app (Card/Button focused scale)
-    const val focusedScale = 1.08f
+    const val FOCUSED_SCALE = 1.08f
 
     // Glow elevation for focus (dp)
     val focusedGlowElevation = 18.dp

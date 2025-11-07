@@ -28,7 +28,7 @@ class IQiYi : SourceProvider {
             Media(
                 id = "A-${categoryId}-$idx",
                 title = "${categoryId} 示例 $idx",
-                posterUrl = "https://img-blog.csdnimg.cn/6343e1698dc34686b87dbf50f4eaf0f2.png",
+                posterUrl = "https://w.wallhaven.cc/full/rq/wallhaven-rqr6w1.jpg",
                 playPageUrl = "https://a.example.com/${categoryId}/detail/$idx",
                 sourceId = id
             )

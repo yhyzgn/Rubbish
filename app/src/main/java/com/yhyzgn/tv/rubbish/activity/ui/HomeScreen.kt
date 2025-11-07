@@ -351,7 +351,7 @@ fun MediaCard(media: Media, onClick: () -> Unit) {
             .width(180.dp)
             .zIndex(if (focused) 1f else 0f)
             .onFocusChanged { focused = it.isFocused },
-        scale = CardDefaults.scale(focusedScale = FocusDefaults.focusedScale),
+        scale = CardDefaults.scale(focusedScale = FocusDefaults.FOCUSED_SCALE),
         glow = CardDefaults.glow(
             focusedGlow = Glow(
                 elevationColor = AppColors.focusGlow, // 发光颜色
@@ -374,12 +374,12 @@ fun MediaCard(media: Media, onClick: () -> Unit) {
     ) {
         // animate image scale so poster visually scales when card is focused (match card scale)
         val scale by animateFloatAsState(
-            targetValue = if (focused) FocusDefaults.focusedScale else 1f,
+            targetValue = if (focused) FocusDefaults.FOCUSED_SCALE else 1f,
             animationSpec = tween(durationMillis = 180)
         )
 
         Column(
-            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
+            modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AsyncImage(
@@ -391,9 +391,14 @@ fun MediaCard(media: Media, onClick: () -> Unit) {
                     .height(200.dp)
                     .graphicsLayer { scaleX = scale; scaleY = scale }
             )
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(8.dp)
+                    .graphicsLayer { scaleX = scale; scaleY = scale })
             Text(
                 text = media.title,
+                modifier = Modifier.graphicsLayer { scaleX = scale; scaleY = scale },
                 color = if (focused) AppColors.textPrimary else AppColors.textSecondary,
                 fontSize = 14.sp,
                 maxLines = 1,
