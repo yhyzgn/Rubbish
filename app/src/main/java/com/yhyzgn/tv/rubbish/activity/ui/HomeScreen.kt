@@ -6,12 +6,12 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.focusGroup
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,8 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusProperties
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -85,7 +83,7 @@ fun HomeScreen(
     val accent = AppColors.textAccent
     val bg = AppColors.background
 
-    val topFocusRequester = remember { FocusRequester() }
+//    val topFocusRequester = remember { FocusRequester() }
 
     Surface(
         modifier = Modifier
@@ -93,7 +91,7 @@ fun HomeScreen(
             .onKeyEvent { event ->
                 if (event.type == KeyEventType.KeyUp && event.key == Key.Back) {
                     // 返回键逻辑：焦点回到顶部源按钮
-                    topFocusRequester.requestFocus()
+//                    topFocusRequester.requestFocus()
                     onBackToTop?.invoke()
                     true
                 } else false
@@ -112,7 +110,7 @@ fun HomeScreen(
                     sources = SourceRegistry.all(),
                     onSelect = { viewModel.switchSource(it.id) },
                     accent = accent,
-                    topFocusRequester = topFocusRequester
+//                    topFocusRequester = topFocusRequester
                 )
             }
 
@@ -126,7 +124,7 @@ fun HomeScreen(
                         showMore = false,
                         onItemClick = onMediaClick,
                         onMoreClick = {},
-                        focusUp = topFocusRequester
+//                        focusUp = topFocusRequester
                     )
                 }
             }
@@ -142,7 +140,7 @@ fun HomeScreen(
                         showMore = true,
                         onItemClick = onMediaClick,
                         onMoreClick = {},
-                        focusUp = if (index == 0) topFocusRequester else null
+//                        focusUp = if (index == 0) topFocusRequester else null
                     )
                 }
             }
@@ -158,13 +156,13 @@ fun SourceRow(
     sources: List<SourceProvider>,
     onSelect: (SourceProvider) -> Unit,
     accent: Color,
-    topFocusRequester: FocusRequester
+//    topFocusRequester: FocusRequester
 ) {
     TvLazyRow(
         modifier = Modifier
             .fillMaxWidth()
             .focusGroup()
-            .focusRequester(topFocusRequester)
+//            .focusRequester(topFocusRequester)
             .padding(top = 8.dp), // add larger top spacing to avoid top overflow when focused
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -267,8 +265,8 @@ fun CategoryRow(
     onMoreClick: () -> Unit,
     focusUp: FocusRequester? = null
 ) {
-    val focusRequesterMore = remember { FocusRequester() }
-    val focusRequesterRow = remember { FocusRequester() }
+//    val focusRequesterMore = remember { FocusRequester() }
+//    val focusRequesterRow = remember { FocusRequester() }
     val rowState = rememberTvLazyListState()
 
     Column(
@@ -292,20 +290,27 @@ fun CategoryRow(
                 Button(
                     onClick = onMoreClick,
                     modifier = Modifier
-                        .height(48.dp)
-                        .focusRequester(focusRequesterMore)
-                        .focusable()
-                        .focusProperties {
-                            up = focusUp ?: FocusRequester.Default
-                            left = focusRequesterRow
-                            down = FocusRequester.Default
-                            right = FocusRequester.Default
-                        },
+                        .defaultMinSize(),
+//                        .focusRequester(focusRequesterMore)
+//                        .focusable()
+//                        .focusProperties {
+//                            up = focusUp ?: FocusRequester.Default
+//                            left = focusRequesterRow
+//                            down = FocusRequester.Default
+//                            right = FocusRequester.Default
+//                        },
                     colors = ButtonDefaults.colors(
                         containerColor = Color.Transparent,
-                        contentColor = accent
+                        contentColor = accent,
+                        focusedContentColor = AppColors.textAccent,
+                        focusedContainerColor = AppColors.cardFocused,
+                        pressedContentColor = AppColors.pressedText,
+                        pressedContainerColor = AppColors.pressedBackground
                     ),
-                    contentPadding = PaddingValues(horizontal = 4.dp, vertical = 2.dp)
+                    shape = ButtonDefaults.shape(
+                        shape = RoundedCornerShape(32)
+                    ),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
                 ) {
                     Text(
                         text = buildAnnotatedString {
@@ -323,9 +328,9 @@ fun CategoryRow(
 
         TvLazyRow(
             modifier = Modifier
-                .fillMaxWidth()
-                .focusRequester(focusRequesterRow)
-                .focusGroup(),
+                .fillMaxWidth(),
+//                .focusRequester(focusRequesterRow)
+//                .focusGroup(),
             state = rowState,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(horizontal = 24.dp)
