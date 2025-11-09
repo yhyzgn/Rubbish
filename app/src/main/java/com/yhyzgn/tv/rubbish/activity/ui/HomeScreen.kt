@@ -17,6 +17,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -45,10 +48,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import androidx.tv.foundation.lazy.list.TvLazyColumn
-import androidx.tv.foundation.lazy.list.TvLazyRow
-import androidx.tv.foundation.lazy.list.items
-import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.Border
 import androidx.tv.material3.Button
 import androidx.tv.material3.ButtonDefaults
@@ -57,8 +56,8 @@ import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.NonInteractiveSurfaceDefaults
 import androidx.tv.material3.Surface
+import androidx.tv.material3.SurfaceDefaults
 import androidx.tv.material3.Text
 import coil3.compose.AsyncImage
 import com.yhyzgn.tv.rubbish.activity.model.Media
@@ -96,11 +95,11 @@ fun HomeScreen(
                     true
                 } else false
             },
-        colors = NonInteractiveSurfaceDefaults.colors(
+        colors = SurfaceDefaults.colors(
             containerColor = bg
         )
     ) {
-        TvLazyColumn(
+        LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
@@ -156,7 +155,7 @@ fun SourceRow(
     accent: Color,
 //    topFocusRequester: FocusRequester
 ) {
-    TvLazyRow(
+    LazyRow(
         modifier = Modifier
             .fillMaxWidth()
             .focusGroup()
@@ -166,7 +165,8 @@ fun SourceRow(
         verticalAlignment = Alignment.CenterVertically,
         contentPadding = PaddingValues(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp) // match other rows and add top padding
     ) {
-        items(sources) { source ->
+        items(sources.size) { index ->
+            val source = sources[index];
             val selected = current == source.id
 
             Button(
@@ -265,7 +265,7 @@ fun CategoryRow(
 ) {
 //    val focusRequesterMore = remember { FocusRequester() }
 //    val focusRequesterRow = remember { FocusRequester() }
-    val rowState = rememberTvLazyListState()
+    val rowState = rememberLazyListState()
 
     Column(
         Modifier
@@ -324,7 +324,7 @@ fun CategoryRow(
 
         Spacer(Modifier.height(8.dp))
 
-        TvLazyRow(
+        LazyRow(
             modifier = Modifier
                 .fillMaxWidth(),
 //                .focusRequester(focusRequesterRow)
@@ -333,7 +333,9 @@ fun CategoryRow(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(horizontal = 24.dp)
         ) {
-            items(medias.take(10)) { media ->
+            val takenMedias = medias.take(10)
+            items(takenMedias.size) { index ->
+                val media = takenMedias[index]
                 MediaCard(media) { onItemClick(media) }
             }
         }
