@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-//    alias(libs.plugins.kotlin.android)
-    id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
+    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -30,13 +29,15 @@ android {
     }
     // ... 启用 compose
     buildFeatures { compose = true }
-    composeOptions { kotlinCompilerExtensionVersion = "1.6.0" }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "21"
+}
+
+kotlin {
+    compilerOptions {
+        languageVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2
     }
 }
 
@@ -59,7 +60,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer:2.19.1")
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("androidx.room:room-runtime:2.8.3")
-    kapt("androidx.room:room-compiler:2.8.3")
+    ksp("androidx.room:room-compiler:2.8.3")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation(libs.jsoup)
     testImplementation(libs.junit)
