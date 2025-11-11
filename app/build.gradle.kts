@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.androidx.core.ktx.v1170)
     implementation(libs.activity.compose)
     implementation(libs.compose.ui)
+    implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material)
     implementation(libs.compose.foundation)
     implementation(libs.compose.animation)
@@ -62,7 +63,9 @@ dependencies {
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
     implementation(libs.okhttp)
+    implementation(libs.okhttp.jvm)
     implementation(libs.jsoup)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
